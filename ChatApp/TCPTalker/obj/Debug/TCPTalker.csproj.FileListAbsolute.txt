@@ -1,0 +1,6 @@
+C:\Users\Денис\source\repos\ChatClient\TCPTalker\bin\Debug\TCPTalker.dll
+C:\Users\Денис\source\repos\ChatClient\TCPTalker\bin\Debug\TCPTalker.pdb
+C:\Users\Денис\source\repos\ChatClient\TCPTalker\obj\Debug\TCPTalker.csproj.CoreCompileInputs.cache
+C:\Users\Денис\source\repos\ChatClient\TCPTalker\obj\Debug\TCPTalker.dll
+C:\Users\Денис\source\repos\ChatClient\TCPTalker\obj\Debug\TCPTalker.pdb
+C:\Users\Денис\source\repos\ChatClient\TCPTalker\obj\Debug\TCPTalker.csprojAssemblyReference.cache
