@@ -8,3 +8,13 @@ C:\Users\Денис\source\repos\ChatClient\ChatServer\obj\Debug\ChatServer.pdb
 C:\Users\Денис\source\repos\ChatClient\ChatServer\obj\Debug\ChatServer.csproj.CopyComplete
 C:\Users\Денис\source\repos\ChatClient\ChatServer\bin\Debug\TCPTalker.dll
 C:\Users\Денис\source\repos\ChatClient\ChatServer\bin\Debug\TCPTalker.pdb
+C:\Users\Денис\source\repos\ChatApp\ChatServer\bin\Debug\ChatServer.exe.config
+C:\Users\Денис\source\repos\ChatApp\ChatServer\bin\Debug\ChatServer.exe
+C:\Users\Денис\source\repos\ChatApp\ChatServer\bin\Debug\ChatServer.pdb
+C:\Users\Денис\source\repos\ChatApp\ChatServer\bin\Debug\TCPTalker.dll
+C:\Users\Денис\source\repos\ChatApp\ChatServer\bin\Debug\TCPTalker.pdb
+C:\Users\Денис\source\repos\ChatApp\ChatServer\obj\Debug\ChatServer.csprojAssemblyReference.cache
+C:\Users\Денис\source\repos\ChatApp\ChatServer\obj\Debug\ChatServer.csproj.CoreCompileInputs.cache
+C:\Users\Денис\source\repos\ChatApp\ChatServer\obj\Debug\ChatServer.csproj.CopyComplete
+C:\Users\Денис\source\repos\ChatApp\ChatServer\obj\Debug\ChatServer.exe
+C:\Users\Денис\source\repos\ChatApp\ChatServer\obj\Debug\ChatServer.pdb

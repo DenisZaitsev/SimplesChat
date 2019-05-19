@@ -52,7 +52,7 @@ namespace ChatServer
                 {
                     if (users.Keys.Contains(client))
                     {                     
-                        Broadcast(new Message(Header.TextMessage, DateTime.Now, "Server", String.Format("User {0} disconnected", users[client])));
+                        Broadcast(new TextMessage(DateTime.Now, "Server", String.Format("User {0} disconnected", users[client])));
                         users.Remove(client);
                         Log(String.Format("User {0} disconnected", users[client]));
                     }
@@ -69,10 +69,11 @@ namespace ChatServer
 
                     case Header.NameRequest:
                         //In case of name request, check is such name is taken, if so, reject this name
-                        if (users.Values.Contains(receivedMessage.Text))
+                        NameRequestMessage requestMessage = receivedMessage as NameRequestMessage;
+                        if (users.Values.Contains(requestMessage.NameToRequest))
                         {
-                            TCPHelper.SendMessage(new Message(Header.NameRejected, DateTime.Now, "Server", "Name rejected"), client);
-                            Log(String.Format("Username {0} taken", receivedMessage.Text));
+                            TCPHelper.SendMessage(new Message(Header.NameRejected, DateTime.Now, "Server"), client);
+                            Log(String.Format("Username {0} taken", requestMessage.NameToRequest));
                             client.Close();
                         }
                         else
@@ -81,17 +82,17 @@ namespace ChatServer
                             if (users.Keys.Contains(client))
                             {
                                 string previousName = users[client];
-                                users[client] = receivedMessage.Text;
-                                TCPHelper.SendMessage(new Message(Header.NameAccepted, DateTime.Now, "Server", "Name changed"), client);
-                                Broadcast(new Message(Header.TextMessage, DateTime.Now, "Server", String.Format("User {0} is now {1}", previousName, users[client])));
+                                users[client] = requestMessage.NameToRequest;
+                                TCPHelper.SendMessage(new Message(Header.NameAccepted, DateTime.Now, "Server"), client);
+                                Broadcast(new TextMessage(DateTime.Now, "Server", String.Format("User {0} is now {1}", previousName, users[client])));
                                 Log(String.Format("User {0} is now {1}", previousName, users[client]));
                             }
                             //If this is a new user, add him to our user list, send him accept message, and also notify everyone about new user
                             else
                             {
-                                users.Add(client, receivedMessage.Text);
-                                TCPHelper.SendMessage(new Message(Header.NameAccepted, DateTime.Now, "Server", "Name accepted"), client);
-                                Broadcast(new Message(Header.TextMessage, DateTime.Now, "Server", String.Format("User {0} has joined the chat", receivedMessage.Text)));
+                                users.Add(client, requestMessage.NameToRequest);
+                                TCPHelper.SendMessage(new Message(Header.NameAccepted, DateTime.Now, "Server"), client);
+                                Broadcast(new TextMessage(DateTime.Now, "Server", String.Format("User {0} has joined the chat", requestMessage.NameToRequest)));
                                 Log(String.Format("User {0} has joined the chat", users[client]));
                             }
                         }
@@ -99,10 +100,26 @@ namespace ChatServer
 
                     //If we get a textmessage, send it to everyone
                     case Header.TextMessage:
+                        TextMessage textMessage = receivedMessage as TextMessage;
                         if (users.Keys.Contains(client))
                         {
-                            Broadcast(new Message(Header.TextMessage, DateTime.Now, users[client], receivedMessage.Text));
-                            Log(new Message(receivedMessage.MessageHeader, DateTime.Now, users[client], receivedMessage.Text).ToString());
+                            Broadcast(new TextMessage(DateTime.Now, users[client], textMessage.Text));
+                            Log(new TextMessage( DateTime.Now, users[client], textMessage.Text).ToString());
+                        }
+                        else
+                        {
+                            Log("Uknown message: " + receivedMessage.ToString());
+                            client.Close();
+                        }
+                        break;
+
+                    //If we get an image, send it to everyone
+                    case Header.ImageMessage:
+                        ImageMessage imageMessage = receivedMessage as ImageMessage;
+                        if (users.Keys.Contains(client))
+                        {
+                            Broadcast(new ImageMessage(DateTime.Now, users[client], imageMessage.Image));
+                            Log(new TextMessage(DateTime.Now, users[client], "Image sent").ToString());
                         }
                         else
                         {

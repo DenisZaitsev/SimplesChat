@@ -17,6 +17,7 @@ namespace ChatClient
     public class Connection
     {
         public TcpClient tcpClient;
+        public string name;
 
         public Connection(IPEndPoint server)
         { 
@@ -32,6 +33,7 @@ namespace ChatClient
         /// <returns>Returns true if name is OK and false if name is wrong</returns>
         public bool Autenficate(string name)
         {
+            this.name = name;
             return TCPHelper.Autenficate(name, tcpClient);       
         }
 
@@ -41,7 +43,7 @@ namespace ChatClient
         /// <param name="message"></param>
         public void SendTextMessage(string message)
         {
-            TCPHelper.SendTextMessage(message, tcpClient);
+            TCPHelper.SendTextMessage(message, name,tcpClient);
         }
 
         /// <summary>

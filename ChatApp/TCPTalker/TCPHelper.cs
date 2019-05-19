@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -7,6 +8,11 @@ namespace TCPTalker
 {
     public static class TCPHelper
     {       
+        /// <summary>
+        /// sends a simple message where only header matters (right now used for registering a new name)
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="tcpClient"></param>
         public static void SendMessage(Message message, TcpClient tcpClient)
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -19,10 +25,11 @@ namespace TCPTalker
             }
         }
 
+
         public static bool Autenficate(string name, TcpClient tcpClient)
         {
             //Send name request
-            SendMessage(new Message(Header.NameRequest, DateTime.Now, name, name),tcpClient);
+            SendMessage(new NameRequestMessage(DateTime.Now, name, name),tcpClient);
             //Receive server's answer
             Message receivedMessage = ReceiveMessage(tcpClient);
             //Check message for right header, server sends "Accepted" in messages Text property if everything's fine
@@ -34,13 +41,30 @@ namespace TCPTalker
         /// Send a simple string text message 
         /// </summary>
         /// <param name="message"></param>
-        public static void SendTextMessage(string message,TcpClient tcpClient)
+        public static void SendTextMessage(string message,string name,TcpClient tcpClient)
         {
             BinaryFormatter bf = new BinaryFormatter();
 
             using (MemoryStream memStream = new MemoryStream())
             {
-                bf.Serialize(memStream, new Message(Header.TextMessage, DateTime.Now, null, message));
+                bf.Serialize(memStream, new TextMessage(DateTime.Now, null, message));
+                tcpClient.GetStream().Write(memStream.ToArray(), 0, Convert.ToInt32(memStream.Length));
+            }
+        }
+
+        /// <summary>
+        /// send an image
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="name"></param>
+        /// <param name="tcpClient"></param>
+        public static void SendImageMessage(Bitmap image,string name, TcpClient tcpClient)
+        {
+            BinaryFormatter bf = new BinaryFormatter();        
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                bf.Serialize(memStream, new ImageMessage(DateTime.Now, name, image));
                 tcpClient.GetStream().Write(memStream.ToArray(), 0, Convert.ToInt32(memStream.Length));
             }
         }
@@ -80,7 +104,7 @@ namespace TCPTalker
                 }
                 catch
                 {
-                    return new Message(Header.TextMessage, DateTime.Now, "INTERNAL ERROR", "GOT BAD MESSAGE");
+                    return new TextMessage(DateTime.Now, "INTERNAL ERROR", "GOT BAD MESSAGE");
                 }
                 
             }

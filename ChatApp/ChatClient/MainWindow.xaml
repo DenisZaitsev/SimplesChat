@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:ChatClient"
         mc:Ignorable="d"
         Title="Chat Client" Height="300" Width="500"
-        Loaded="Window_Loaded">
-        
-    
-    
-    
+        Loaded="Window_Loaded"
+        >
+
+
     <Window.Resources>
         <local:Session x:Key="session"/>
+        <local:BitmapToBitmapSourceConverter x:Key="converter"/>
     </Window.Resources>
 
 
@@ -22,19 +22,20 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="chatListView" Grid.Row="0" Margin="10" ItemsSource="{Binding LocalMessages}" >
+        <ListView x:Name="chatListView" Grid.Row="0" Margin="10" ItemsSource="{Binding LocalMessages}" ScrollViewer.CanContentScroll="False">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding}" >                                             
-                       <!-- 
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>                                             
                         <Run Text="["/> <Run Text="{Binding Time,Mode=OneWay}"/> <Run Text="]"/>
                         <Run Text="{Binding Sender,Mode=OneWay}"/>
                         <Run Text=": "/><Run Text="{Binding Text,Mode=OneWay}"/>
-                        -->
-                    </TextBlock>
+                        <Image Source="{Binding Image,Converter={StaticResource converter}}" Stretch="Fill" MaxHeight="200"  MouseUp="Image_MouseUp"/>
+                        </TextBlock>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-         
+
         </ListView>
         <Grid Grid.Row="1" DataContext="{StaticResource session}">
             <Grid.ColumnDefinitions>
@@ -43,9 +44,15 @@
             </Grid.ColumnDefinitions>
 
             <TextBox Text="{Binding MessageToSend, Mode=TwoWay}" x:Name="messageBox" DockPanel.Dock="Left" Margin="5" MinWidth="100" TextWrapping="Wrap" />
-            <Button DockPanel.Dock="Right" Margin="5,10" Content="Send" Padding="20,0" Grid.Column="1" Click="sendButtonClick"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button  Click="imageButtonClick">
+                    <Image x:Name="pictureImage" Source="pack://application:,,,/IconResources/ImageIcon.png" MaxHeight="200" Stretch="Fill"/>
+                </Button>
+                <Button  Margin="5,10" Content="Send" Padding="20,0" Grid.Column="1" Click="sendButtonClick"/>
+            </StackPanel>
 
         </Grid>
 
     </Grid>
 </Window>
+
