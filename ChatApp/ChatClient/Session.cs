@@ -26,7 +26,7 @@ namespace ChatClient
 
         public Session()
         {
-            LocalMessages = new ObservableCollection<Message>() { new Message(Header.TextMessage, DateTime.Now, "Server", "Connected to server") };
+            LocalMessages = new ObservableCollection<Message>() { new TextMessage(DateTime.Now, "Server", "Connected to server") };
             MessageToSend = "Enter your message";
         }
 

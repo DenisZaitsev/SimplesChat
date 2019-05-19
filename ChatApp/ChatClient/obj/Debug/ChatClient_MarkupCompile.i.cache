@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Денис\source\repos\ChatClient\ChatClient\obj\Debug\
+C:\Users\Денис\source\repos\ChatApp\ChatClient\obj\Debug\
 ChatClient
 none
 false
 DEBUG;TRACE
-C:\Users\Денис\source\repos\ChatClient\ChatClient\App.xaml
-21463638958
+C:\Users\Денис\source\repos\ChatApp\ChatClient\App.xaml
+3-447083553
 
-121718647349
-16717278843
-ConnectWindow.xaml;MainWindow.xaml;
+141525550502
+181542757842
+ConnectWindow.xaml;ImageWindow.xaml;MainWindow.xaml;
 
 True
 

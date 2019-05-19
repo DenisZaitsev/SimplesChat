@@ -11,6 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPTalker", "TCPTalker\TCPTalker.csproj", "{D025D4B4-6A26-4A3C-9A8C-494A2BE9153A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IconResources", "IconResources", "{201A064C-7E15-482E-B877-1D718DB9F6FE}"
+	ProjectSection(SolutionItems) = preProject
+		ChatClient\IconResources\imageIcon.png = ChatClient\IconResources\imageIcon.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

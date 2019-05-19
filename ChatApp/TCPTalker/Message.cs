@@ -6,6 +6,9 @@ namespace TCPTalker
     {
         NameRequest,
         TextMessage,
+        ImageMessage,
+        GIFMessage,
+        MP3Message,
         NameAccepted,
         NameRejected,
     }
@@ -14,7 +17,7 @@ namespace TCPTalker
     public class Message
     {
         public Header MessageHeader;
-        private DateTime dateTime { get; set; }
+        protected DateTime dateTime { get; set; }
         public string Time
         {
             get
@@ -22,20 +25,22 @@ namespace TCPTalker
                 return dateTime.ToShortTimeString();
             }
         }
-        public string Sender { get; private set; }
-        public string Text { get; private set; }
 
-        public Message(Header header, DateTime time, string sender, string text)
+        /// <summary>
+        /// Sender's name (should only be filled by server)
+        /// </summary>
+        public string Sender { get; protected set; }
+
+        public Message(Header header, DateTime time, string sender)
         {
             this.MessageHeader = header;
             this.dateTime = time;
             this.Sender = sender;
-            this.Text = text;
         }
 
         public override string ToString()
         {
-            return "[" + Time + "] " + Sender + ": " + Text;
+            return "[" + Time + "] " + Sender;
         }
 
     }
