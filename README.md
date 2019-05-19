@@ -4,3 +4,4 @@ I have no idea how licensing works, so if you find this small piece of app usefu
 
 Server's IP/Port is hardcoded in Program.cs
 
+20/05/19 You can now send images and open bigger versions by clicking said images. Overall architecture improved(maybe).
